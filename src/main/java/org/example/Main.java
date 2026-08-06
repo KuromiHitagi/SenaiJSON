@@ -61,11 +61,11 @@ public class Main {
     public static void main(String[] args) {
         configuracoes = manager.carregar();
 
-        gerarHeader("Configurações", "double");
+        gerarHeader("Configuracoes", "double");
         int op = 0;
 
-        while(op != 5) {
-            gerarMenu("Ver as configurações", "Alterar nome", "Alterar nivel", "Alterar audio", "Sair");
+        while(op != 6) {
+            gerarMenu("Ver as configuracoes", "Alterar nome", "Alterar nivel", "Alterar audio", "Alterar resolucao", "Sair e Salvar");
             try{
                 op = sc.nextInt();
                 sc.nextLine();
@@ -75,20 +75,21 @@ public class Main {
                     case 2: alterarNome(); break;
                     case 3: alterarNivel(); break;
                     case 4: alterarAudio(); break;
-                    case 5:
-                        System.out.println("Salvando configurações...");
+                    case 5: alterarResolucao(); break;
+                    case 6:
+                        System.out.println("Salvando configuracoes...");
                         break;
                     default:
-                        System.out.println("Opção inválida!");
+                        System.out.println("Opcao invalida!");
                         break;
                 }
             } catch(InputMismatchException e) {
-                System.out.println("erro: Por favor, digite um número: ");
+                System.out.println("erro: Por favor, digite um numero: ");
                 sc.nextLine();
             }
         }
         manager.salvar(configuracoes);
-        System.out.println("Configurações salvas em 'config_jogo.json'.");
+        System.out.println("Configuracoes salvas em 'config_jogo.json'.");
     }
 
     private static void verConfiguracoes() {
@@ -107,6 +108,7 @@ public class Main {
 
         try {
             int nivel = sc.nextInt();
+            sc.nextLine();
 
             if(nivel > 0 && nivel < 6) {
                 configuracoes.setNivelDificuldade(nivel);
@@ -125,6 +127,33 @@ public class Main {
         configuracoes.setAudioHabilitado(!audioAtual);
         String statusAudio = configuracoes.isAudioHabilitado() ? "Habilitado" : "Desabilitado";
         System.out.println("Audio agora está: " + statusAudio);
+    }
+
+    private static void alterarResolucao() {
+        gerarMenu("256x144", "426x240", "640x360", "854x480", "1080x720", "1920x1080", "2560x1440", "3840x2160");
+
+        try{
+            int op = sc.nextInt();
+            String resolucao = configuracoes.getResolucaoTela();
+
+            if(op > 0 && op < 9) {
+                switch (op) {
+                    case 1: resolucao = "256x144"; break;
+                    case 2: resolucao = "426x240"; break;
+                    case 3: resolucao = "640x360"; break;
+                    case 4: resolucao = "854x480"; break;
+                    case 5: resolucao = "1080x720"; break;
+                    case 6: resolucao = "1920x1080"; break;
+                    case 7: resolucao = "2560x1440"; break;
+                    case 8: resolucao = "3840x2160"; break;
+                }
+                configuracoes.setResolucaoTela(resolucao);
+            } else {
+                System.out.println("Digite entre 1 e 9...");
+            }
+        } catch(InputMismatchException e) {
+            System.out.println("erro: Você deve escrever os numeros. " + e.getMessage());
+        }
     }
 
     public static void gerarMenu(String... titulos) {

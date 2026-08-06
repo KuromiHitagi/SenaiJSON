@@ -49,11 +49,11 @@ public class ConfiguracoesJogo {
     public String toString() {
         String statusAudio = audioHabilitado ? "Habilitado" : "Desabilitado";
 
-        return "ConfiguracoesJogo{" +
-                "nomeJogador = '" + nomeJogador + '\'' +
-                ", nivelDificuldade = " + nivelDificuldade +
-                ", audio = " + statusAudio +
-                ", resolucaoTela = '" + resolucaoTela + '\'' +
+        return "ConfiguracoesJogo {" +
+                "\n nomeJogador = '" + nomeJogador +
+                ",\n nivelDificuldade = " + nivelDificuldade +
+                ",\n audio = " + statusAudio +
+                ",\n resolucaoTela = '" + resolucaoTela + "\n" +
                 '}';
     }
 }
